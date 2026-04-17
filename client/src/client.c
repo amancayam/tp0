@@ -81,11 +81,11 @@ t_config* iniciar_config(void)
 
 void leer_consola(t_log* logger)
 {
-    char* leido;    // La primera te la dejo de yapa
+    char* leido;   
     leido = readline("> ");
 
     // Iteramos mientras el string devuelto no esté vacío
-    while (strcmp(leido, "") != 0) {
+    while (leido != NULL && strcmp(leido, "") != 0) {
         log_info(logger, "%s", leido); // Logueamos lo que ingresó el usuario
         free(leido);                   // ¡Fundamental liberar la memoria!
         leido = readline("> ");        // Volvemos a pedir otra línea
@@ -104,7 +104,7 @@ void paquete(int conexion)
     //leo primer linea
     leido = readline("> ");
 
-    while(strcmp(leido, "") !=0) {
+    while(leido !=NULL && strcmp(leido, "") !=0) {
 // Agregamos el texto al paquete. 
         // Usamos strlen(leido) + 1 para incluir el caracter de fin de cadena '\0'
         agregar_a_paquete(paquete, leido, strlen(leido) + 1);
