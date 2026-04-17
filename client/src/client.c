@@ -39,11 +39,14 @@ int main(void)
 
     // Loggeamos el valor de config
     log_info(logger, "El valor de la clave es: %s", valor);
+    printf("Intentando conectar a %s en el puerto %s...\n", ip, puerto);
   // Creamos una conexión hacia el servidor
-    conexion = crear_conexion(ip, puerto);
-    if (conexion == -1) {
-        log_error(logger, "No me pude conectar");
+  if (conexion == -1) {
+        printf("ERROR FATAL: No se pudo conectar. Terminando programa.\n");
+        log_error(logger, "Fallo de conexion");
         return EXIT_FAILURE;
+    } else {
+        printf("CONECTADO EXITOSAMENTE!\n");
     }
     // ---------------- LEER DE CONSOLA ---------------- //
 
