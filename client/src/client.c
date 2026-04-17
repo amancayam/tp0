@@ -4,7 +4,7 @@
 int main(void)
 {
     //---------------------------------------------------PARTE 2-------------------------------------------------------------//
-
+setvbuf(stdout, NULL, _IONBF, 0); // Desactiva el buffering de salida
     int conexion;
     char* ip;
     char* puerto;

@@ -1,6 +1,7 @@
 #include "server.h"
 
 int main(void) {
+	setvbuf(stdout, NULL, _IONBF, 0); // Desactiva el buffering de salida
 	logger = log_create("log.log", "Servidor", 1, LOG_LEVEL_DEBUG);
 
 	int server_fd = iniciar_servidor();
@@ -21,7 +22,7 @@ int main(void) {
 			break;
 		case -1:
 			log_error(logger, "el cliente se desconecto. Terminando servidor");
-			return EXIT_FAILURE;
+			break;
 		default:
 			log_warning(logger,"Operacion desconocida. No quieras meter la pata");
 			break;
