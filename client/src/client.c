@@ -39,7 +39,12 @@ int main(void)
 
     // Loggeamos el valor de config
     log_info(logger, "El valor de la clave es: %s", valor);
-
+  // Creamos una conexión hacia el servidor
+    conexion = crear_conexion(ip, puerto);
+    if (conexion == -1) {
+        log_error(logger, "No me pude conectar");
+        return EXIT_FAILURE;
+    }
     // ---------------- LEER DE CONSOLA ---------------- //
 
     leer_consola(logger);
@@ -48,8 +53,7 @@ int main(void)
 
     // ADVERTENCIA: Antes de continuar, tenemos que asegurarnos que el servidor esté corriendo para poder conectarnos a él
 
-    // Creamos una conexión hacia el servidor
-    conexion = crear_conexion(ip, puerto);
+  
     // Enviamos al servidor el valor de CLAVE como mensaje
     enviar_mensaje(valor, conexion);
     // Armamos y enviamos el paquete
