@@ -5,7 +5,7 @@ t_log* logger;
 int iniciar_servidor(void)
 {
 	// Quitar esta línea cuando hayamos terminado de implementar la funcion
-	assert(!"no implementado!");
+//	assert(!"no implementado!");
 
 	int socket_servidor;
 
@@ -19,9 +19,18 @@ int iniciar_servidor(void)
 	getaddrinfo(NULL, PUERTO, &hints, &servinfo);
 
 	// Creamos el socket de escucha del servidor
+    socket_servidor = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
+    
+    // Para evitar el error de "Address already in use" si lo cerrás y abrís rápido
+    int yes = 1;
+    setsockopt(socket_servidor, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
 
-	// Asociamos el socket a un puerto
+    bind(socket_servidor, servinfo->ai_addr, servinfo->ai_addrlen);
+    listen(socket_servidor, SOMAXCONN);
 
+    freeaddrinfo(servinfo);
+    return socket_servidor;	// Asociamos el socket a un puerto
+	return socket_servidor;
 	// Escuchamos las conexiones entrantes
 
 	freeaddrinfo(servinfo);
@@ -33,7 +42,7 @@ int iniciar_servidor(void)
 int esperar_cliente(int socket_servidor)
 {
 	// Quitar esta línea cuando hayamos terminado de implementar la funcion
-	assert(!"no implementado!");
+	//assert(!"no implementado!");
 
 	// Aceptamos un nuevo cliente
 	int socket_cliente;
@@ -41,7 +50,6 @@ int esperar_cliente(int socket_servidor)
 
 	return socket_cliente;
 }
-
 int recibir_operacion(int socket_cliente)
 {
 	int cod_op;
